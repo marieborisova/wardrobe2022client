@@ -10,13 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.wardrobe2022client.adapter.ClothingAdapter;
+import com.example.wardrobe2022client.domain.Clothing;
+import com.example.wardrobe2022client.fragment.AddClothingFragment;
+import com.example.wardrobe2022client.nodb.NoDb;
+import com.example.wardrobe2022client.rest.WardrobeApiVolley;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView rvBook;
-    private BookAdapter bookAdapter;
+    private RecyclerView rvClothing;
+    private ClothingAdapter clothingAdapter;
     private ItemTouchHelper.SimpleCallback simpleCallback;
-    private LibraryApiImpl libraryApi;
+    private WardrobeApiVolley wardrobeApiVolley;
     private AppCompatButton btnAdd;
 
     @Override
@@ -28,25 +34,26 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddBookFragment addBookFragment = new AddBookFragment();
+                AddClothingFragment addClothingFragment = new AddClothingFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.fl_main, addBookFragment)
+                        .add(R.id.fl_main, addClothingFragment)
                         .commit();
 
             }
         });
 
 
-        libraryApi = new LibraryApiImpl(this);
-        libraryApi.fillBook();
-        libraryApi.fillAuthor();
-        libraryApi.fillGenre();
+        wardrobeApiVolley = new WardrobeApiVolley(this);
+        wardrobeApiVolley.fillClothing();
+        wardrobeApiVolley.fillSeason();
+        wardrobeApiVolley.fillSize();
+        wardrobeApiVolley.fillSex();
 
 
-        rvBook = findViewById(R.id.rv_books);
-        bookAdapter = new BookAdapter(this, NoDb.BOOK_LIST);
-        rvBook.setAdapter(bookAdapter);
+        rvClothing = findViewById(R.id.rv_clothing);
+        clothingAdapter = new ClothingAdapter(this, NoDb.CLOTHING_LIST);
+        rvClothing.setAdapter(clothingAdapter);
 
         simpleCallback = new ItemTouchHelper.SimpleCallback(
                 0,
@@ -60,19 +67,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-                Book book = NoDb.BOOK_LIST.get(viewHolder.getAdapterPosition());
+                Clothing clothing = NoDb.CLOTHING_LIST.get(viewHolder.getAdapterPosition());
                 if(direction == ItemTouchHelper.LEFT){
-                    libraryApi.deleteBook(book.getId());
+                    wardrobeApiVolley.deleteClothing(clothing.getId());
                 }
 
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(rvBook);
+        itemTouchHelper.attachToRecyclerView(rvClothing);
 
     }
     public void updateAdapter(){
-        bookAdapter.notifyDataSetChanged();
+        clothingAdapter.notifyDataSetChanged();
     }
 
     @Override
