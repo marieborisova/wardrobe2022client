@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 public class ClothingMapper {
 
-    public Clothing bookFromJsonArray(JSONObject jsonObject, Season season, Size size, Sex sex) {
+    public Clothing clothingFromJsonArray(JSONObject jsonObject, Season season, Size size, Sex sex) {
 
         Clothing clothing = null;
 

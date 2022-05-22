@@ -51,6 +51,10 @@ public class Clothing implements Serializable {
         return size;
     }
 
+    public Sex getSex() {
+        return sex;
+    }
+
 
     @Override
     public String toString() {
@@ -59,6 +63,7 @@ public class Clothing implements Serializable {
                 ", name='" + name + '\'' +
                 ", season=" + season +
                 ", size=" + size +
+                ", sex=" + sex +
                 '}';
     }
 }
