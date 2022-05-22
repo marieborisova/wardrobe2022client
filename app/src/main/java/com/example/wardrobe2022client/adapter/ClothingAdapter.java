@@ -39,7 +39,7 @@ public class ClothingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             tvName = itemView.findViewById(R.id.tv_name);
             tvSeason = itemView.findViewById(R.id.tv_season_name);
             tvSize = itemView.findViewById(R.id.tv_size_name);
-            tvSex = itemView.findViewById(R.id.sp_size);
+            tvSex = itemView.findViewById(R.id.tv_sex_name);
 
         }
     }
