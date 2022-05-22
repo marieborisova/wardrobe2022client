@@ -12,22 +12,26 @@ public class Clothing implements Serializable {
     private Season season;
 
     private Size size;
+    private Sex sex;
 
 
 
 
-    public Clothing(int id, String name, Season season, Size size) {
+    public Clothing(int id, String name, Season season, Size size, Sex sex) {
         this.id = id;
         this.name = name;
         this.season = season;
         this.size = size;
+        this.sex = sex;
 
     }
-    public Clothing(String name, Season season, Size size) {
+    public Clothing(String name, Season season, Size size, Sex sex) {
 
         this.name = name;
         this.season = season;
         this.size = size;
+        this.sex = sex;
+
 
     }
 
